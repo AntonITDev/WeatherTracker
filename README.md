@@ -3,9 +3,11 @@ Module for tracking weather on Python.
 
 -------------------------------------------------------------------------------------------------------------------
 
-Using API: "https://api.openweathermap.org/data" (One Call API 3.0), "http://api.openweathermap.org/geo"
+Using API: "https://api.openweathermap.org" methodds: "/data/2.5/weather".
 
 For work with the module, you need to register in the service and create your own API key.
+
+If need search exact city, we can use "https://openweathermap.org/find?q=", after "q" need write title of the city.
 
 -------------------------------------------------------------------------------------------------------------------
 
@@ -64,13 +66,40 @@ Supporting the following languages. To select one, you can use the corresponding
 
 -------------------------------------------------------------------------------------------------------------------
 
-If need search exact city, we can use "https://openweathermap.org/find?q=", after "q" need write title of the city.
-
 Documentation:
 
-getCityGeo(city, )
+getWeatherByName(
+		token: int | str, --> API_KEY
+		city: str, 
+		country: str,
+		units: str = 'metric',
+		exclude: str = 'current',
+		date: str = date.today().strftime("%Y-%m-%d"),
+		tz: str = '+03:00',
+		lang:str = 'en')-> Any:
+	
+	'''Weather city by name
+	
+	units: ['metric', 'standard', 'imperial']
+	exclude: ['current','minutely','hourly', 'daily','alert']
 
-getCityWeather(city_id, log,)
+	'''
+
+ def getWeatherById(
+		token: int | str, --> API_KEY
+		city_id: str,
+		units: str = 'metric',
+		exclude: str = 'current',
+		tz: str = '+03:00',
+		date: str = date.today().strftime("%Y-%m-%d"),
+		lang:str = 'en') -> Any:
+	
+	'''Weather city by id
+	
+	units: ['metric', 'standard', 'imperial']
+	exclude: ['current','minutely','hourly', 'daily','alert']
+	
+	'''
 
 -------------------------------------------------------------------------------------------------------------------
 
