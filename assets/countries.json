@@ -11,7 +11,7 @@
 	"Greek": "el",
 	"English": "en",
 	"Basque": "eu",
-	"Persian (Farsi)": "fa",
+	"Persian_Farsi": "fa",
 	"Finnish": "fi",
 	"French": "fr",
 	"Galician": "gl",
@@ -30,7 +30,7 @@
 	"Dutch": "nl",
 	"Polish": "pl",
 	"Portuguese": "pt",
-	"Português Brasil": "pt_br",
+	"Portuguese_Brasil": "pt_br",
 	"Romanian": "ro",
 	"Russian": "ru",
 	"Slovak": "sk",
@@ -40,18 +40,9 @@
 	"Turkish": "tr",
 	"Vietnamese": "vi",
 	"Zulu": "zu",
-	"Swedish": [
-		"sv",
-		"se"
-	],
+	"Swedish": ["sv", "se"],
 	"Chinese Simplified": "zh_cn ",
 	"Chinese Traditional": "zh_tw",
-	"Ukrainian": [
-		"ua",
-		"uk"
-	],
-	"Spanish": [
-		"sp",
-		"es"
-	]
+	"Ukrainian": ["ua", "uk"],
+	"Spanish": ["sp", "es"]
 }

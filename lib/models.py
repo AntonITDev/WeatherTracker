@@ -1,5 +1,3 @@
-from aiogram.types import Message
-from time import perf_counter
 from typing import Any, Dict
 
 

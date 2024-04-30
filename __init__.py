@@ -1,4 +1,3 @@
-from .lib.components import *
-from .lib.countries import list_countries
+from .lib.components import getWeatherByName, getWeatherById, getWeatherByCoords
 
-__all__ = ['getWeatherByName', 'getWeatherById', 'list_countries']
+__all__ = ['getWeatherByName', 'getWeatherById', 'getWeatherByCoords']

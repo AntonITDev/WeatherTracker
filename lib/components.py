@@ -1,12 +1,14 @@
 import aiohttp
 from datetime import date
 from typing import Awaitable
-from config import BASE_URL, API_URL, HEADERS
-from models import WeatherData
+from lib.config import BASE_URL, API_URL, HEADERS
+from lib.models import WeatherData
 
 async def request(query: str) -> Awaitable:
 	async with aiohttp.ClientSession(base_url=BASE_URL, headers=HEADERS) as session:
 		async with session.get(API_URL+query) as response:
+			if response.status != 200:
+				raise aiohttp.ClientConnectionError('API error')
 			return await response.json()
 		
 
