@@ -1,44 +1,57 @@
-from requests import get
-from fake_useragent import UserAgent
+import aiohttp
 from datetime import date
-from typing import Any
+from typing import Awaitable
+from config import BASE_URL, API_URL, HEADERS
+from models import WeatherData
 
-headers = {'User-Agent': UserAgent().chrome}
+async def request(query: str) -> Awaitable:
+	async with aiohttp.ClientSession(base_url=BASE_URL, headers=HEADERS) as session:
+		async with session.get(API_URL+query) as response:
+			return await response.json()
+		
 
-def getWeatherByName(
-		token: int | str, 
+"""
+	units: ['metric', 'standard', 'imperial']
+	exclude: ['current','minutely','hourly', 'daily','alert']
+"""
+async def getWeatherByName(
+		*,
+		key: int | str, 
 		city: str, 
-		country: str,
+		country: str = None,
 		units: str = 'metric',
 		exclude: str = 'current',
 		date: str = date.today().strftime("%Y-%m-%d"),
 		tz: str = '+03:00',
-		lang:str = 'en')-> Any:
+		lang: str = 'en')-> WeatherData:
 	
-	'''Weather city by name
-	
-	units: ['metric', 'standard', 'imperial']
-	exclude: ['current','minutely','hourly', 'daily','alert']
+	"""Get weather by city name"""
 
-	'''
-	url = f'https://api.openweathermap.org/data/2.5/weather?q={city},{country}&units={units}&exclude={exclude}$date={date}&tz={tz}&lang={lang}&appid={token}'
-	return get(url, headers=headers).json()
+	return WeatherData(await request(f'q={city},{country}&units={units}&exclude={exclude}$date={date}&tz={tz}&lang={lang}&appid={key}'))
 
-def getWeatherById(
-		token: int | str, 
+async def getWeatherById(
+		*,
+		key: int | str, 
 		city_id: str,
 		units: str = 'metric',
 		exclude: str = 'current',
 		tz: str = '+03:00',
 		date: str = date.today().strftime("%Y-%m-%d"),
-		lang:str = 'en') -> Any:
+		lang:str = 'en') -> WeatherData:
 	
-	'''Weather city by name
-	
-	units: ['metric', 'standard', 'imperial']
-	exclude: ['current','minutely','hourly', 'daily','alert']
-	
-	'''
+	"""Get weather data by city id"""
+	return WeatherData(await request(f'id={city_id}&units={units}&exclude={exclude}$date={date}&tz={tz}&lang={lang}&appid={key}'))
 
-	url = f'https://api.openweathermap.org/data/2.5/weather?id={city_id}&units={units}&exclude={exclude}$date={date}&tz={tz}&lang={lang}&appid={token}'
-	return get(url, headers=headers).json()
+async def getWeatherByCoords(
+		*,
+		key: int | str, 
+		lat: float | str,
+		lon: float | str,
+		units: str = 'metric',
+		exclude: str = 'current',
+		tz: str = '+03:00',
+		date: str = date.today().strftime("%Y-%m-%d"),
+		lang:str = 'en') -> WeatherData:
+	
+	"""Get weather data by city coords"""
+	return WeatherData(await request(f'lat={lat}&lon={lon}&units={units}&exclude={exclude}$date={date}&tz={tz}&lang={lang}&appid={key}'))
